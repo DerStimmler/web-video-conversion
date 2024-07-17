@@ -7,8 +7,42 @@
 		<title>web-video-conversion-comparison</title>
 	</head>
 	<body>
-		<div id="app">
-			<input type="file" id="file-input" />
+		<div class="app">
+			<header>
+				<h1>web-video-conversion-comparison</h1>
+			</header>
+			<div class="cards">
+				<div class="card">
+					<div class="card__header">ffmpeg.js</div>
+					<input type="file" id="asm-file-input" />
+					<select id="asm-format-input">
+						<option value="audio/mp3">mp3</option>
+						<option value="video/webm">webm</option>
+						<option value="video/mp4">mp4</option>
+					</select>
+					<button id="button-convert-asm">Convert</button>
+					<div id="asm-time"></div>
+				</div>
+				<div class="card">
+					<div class="card__header">ffmpeg.wasm</div>
+					<input type="file" id="wasm-file-input" />
+					<select id="wasm-format-input">
+						<option value="audio/mp3">mp3</option>
+						<option value="video/webm">webm</option>
+						<option value="video/mp4">mp4</option>
+					</select>
+					<button id="button-convert-wasm">Convert</button>
+					<div id="wasm-time"></div>
+				</div>
+			</div>
+			<footer>
+				<p>
+					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
+					omnis similique dolore ipsam voluptatibus quibusdam quidem reiciendis,
+					amet praesentium non eligendi modi nihil rerum ipsa nam dignissimos
+					voluptatem, velit sed.
+				</p>
+			</footer>
 		</div>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
