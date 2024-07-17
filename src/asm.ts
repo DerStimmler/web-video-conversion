@@ -1,3 +1,5 @@
+import { downloadBlob } from "./utils";
+
 const ffmpeg = require("ffmpeg.js/ffmpeg-mp4.js");
 
 let file: File;
@@ -6,7 +8,10 @@ export function handleAsmFile() {
 	const inputElement = document.getElementById("asm-file-input");
 	inputElement?.addEventListener(
 		"change",
-		(ev: any) => (file = ev.target.files[0] as File),
+		(ev: Event) => {
+			const input = ev.target as HTMLInputElement;
+			file = input.files![0] as File;
+		},
 		false
 	);
 }
@@ -16,6 +21,8 @@ export function convertAsm() {
 		alert("Please select a file first.");
 		return;
 	}
+
+	updateState("Preparing...");
 
 	const formatInput = document.getElementById(
 		"asm-format-input"
@@ -34,21 +41,23 @@ function convertFile(file: File, format: string, mimeType: string) {
 	let stderr = "";
 
 	file.arrayBuffer().then((buffer) => {
+		updateState("Converting...");
+
 		performance.mark("start");
 
 		const result = ffmpeg({
 			MEMFS: [{ name: inputFileName, data: buffer }],
 			arguments: ["-i", inputFileName, outputFileName],
-			print: function (data: any) {
+			print: function (data: string) {
 				stdout += data + "\n";
 			},
-			printErr: function (data: any) {
+			printErr: function (data: string) {
 				stderr += data + "\n";
 			},
-			onExit: function (code: any) {
-				console.info("Process exited with code " + code);
+			onExit: function (code: number) {
 				console.info(stdout);
-				console.error(stderr);
+				console.log(stderr);
+				console.log("Process exited with code " + code);
 			},
 		});
 
@@ -56,18 +65,14 @@ function convertFile(file: File, format: string, mimeType: string) {
 
 		performance.mark("end");
 
-		const blob = new Blob([out.data], { type: mimeType });
-		const downloadUrl = URL.createObjectURL(blob);
-		const link = document.createElement("a");
-		link.href = downloadUrl;
-		link.download = outputFileName;
-		link.click();
-		URL.revokeObjectURL(downloadUrl);
+		downloadBlob([out.data], mimeType, outputFileName);
 
 		const measure = performance.measure("test", "start", "end");
 
-		document.getElementById(
-			"asm-time"
-		)!.innerText = `Duration: ${measure.duration.toFixed(2)} ms`;
+		updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
 	});
+}
+
+function updateState(state: string) {
+	document.getElementById("asm-state")!.innerText = state;
 }

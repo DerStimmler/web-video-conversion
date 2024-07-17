@@ -1,5 +1,6 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
+import { downloadBlob } from "./utils";
 
 let ffmpeg: FFmpeg | null = null;
 
@@ -30,7 +31,6 @@ export async function convertWasm() {
 }
 
 async function convertFile(file: File, format: string, mimeType: string) {
-
 	const inputFileName = file.name;
 	const outputFileName = inputFileName.split(".")[0] + "-converted." + format;
 
@@ -41,7 +41,7 @@ async function convertFile(file: File, format: string, mimeType: string) {
 			console.log(message);
 		});
 		ffmpeg.on("progress", ({ progress }) => {
-			console.log(`${progress * 100} %`);
+			updateState(`Progress: ${progress * 100} %`);
 		});
 		await ffmpeg.load({
 			coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
@@ -61,17 +61,13 @@ async function convertFile(file: File, format: string, mimeType: string) {
 
 	performance.mark("end");
 
-	const blob = new Blob([data], { type: mimeType });
-	const downloadUrl = URL.createObjectURL(blob);
-	const link = document.createElement("a");
-	link.href = downloadUrl;
-	link.download = outputFileName;
-	link.click();
-	URL.revokeObjectURL(downloadUrl);
+	downloadBlob([data], mimeType, outputFileName);
 
 	const measure = performance.measure("test", "start", "end");
 
-	document.getElementById(
-		"wasm-time"
-	)!.innerText = `Duration: ${measure.duration.toFixed(2)} ms`;
+	updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
+}
+
+function updateState(state: string) {
+	document.getElementById("wasm-state")!.innerText = state;
 }
