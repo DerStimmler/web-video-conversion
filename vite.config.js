@@ -6,4 +6,7 @@ export default defineConfig({
     plugins: [
         vitePluginRequire.default()
     ],
+    optimizeDeps: {
+        exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util']
+    }
 });

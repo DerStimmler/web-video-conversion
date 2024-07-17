@@ -27,8 +27,6 @@ export function convertAsm() {
 }
 
 function convertFile(file: File, format: string, mimeType: string) {
-	performance.mark("start");
-
 	const inputFileName = file.name;
 	const outputFileName = inputFileName.split(".")[0] + "-converted." + format;
 
@@ -36,6 +34,8 @@ function convertFile(file: File, format: string, mimeType: string) {
 	let stderr = "";
 
 	file.arrayBuffer().then((buffer) => {
+		performance.mark("start");
+
 		const result = ffmpeg({
 			MEMFS: [{ name: inputFileName, data: buffer }],
 			arguments: ["-i", inputFileName, outputFileName],
@@ -54,6 +54,8 @@ function convertFile(file: File, format: string, mimeType: string) {
 
 		const out = result.MEMFS[0];
 
+		performance.mark("end");
+
 		const blob = new Blob([out.data], { type: mimeType });
 		const downloadUrl = URL.createObjectURL(blob);
 		const link = document.createElement("a");
@@ -62,7 +64,6 @@ function convertFile(file: File, format: string, mimeType: string) {
 		link.click();
 		URL.revokeObjectURL(downloadUrl);
 
-		performance.mark("end");
 		const measure = performance.measure("test", "start", "end");
 
 		document.getElementById(

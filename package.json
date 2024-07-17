@@ -13,6 +13,8 @@
 		"vite": "^5.3.4"
 	},
 	"dependencies": {
+		"@ffmpeg/ffmpeg": "^0.12.10",
+		"@ffmpeg/util": "^0.12.1",
 		"@types/node": "^20.14.11",
 		"ffmpeg.js": "^4.2.9003",
 		"vite-plugin-require": "^1.2.14"
