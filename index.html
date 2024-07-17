@@ -26,6 +26,7 @@
 					<button id="button-convert-asm">Convert</button>
 					<div id="asm-state">Ready</div>
 				</div>
+
 				<div class="card">
 					<div class="card__header">ffmpeg.wasm</div>
 					<input type="file" id="wasm-file-input" accept="video/mp4" />
@@ -39,6 +40,21 @@
 					</select>
 					<button id="button-convert-wasm">Convert</button>
 					<div id="wasm-state">Ready</div>
+				</div>
+
+				<div class="card">
+					<div class="card__header">ffmpeg.wasm (MT)</div>
+					<input type="file" id="wasm-mt-file-input" accept="video/mp4" />
+					<select id="wasm-mt-format-input">
+						<option value="audio/mp3">mp3</option>
+						<option value="video/mpeg">mpeg</option>
+						<option disabled value="video/webm">webm</option>
+						<option disabled value="video/mp4">mp4</option>
+						<option disabled value="video/mkv">mkv</option>
+						<option disabled value="video/mov">mov</option>
+					</select>
+					<button id="button-convert-wasm-mt">Convert</button>
+					<div id="wasm-mt-state">Ready</div>
 				</div>
 			</div>
 			<footer>
