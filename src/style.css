@@ -76,6 +76,9 @@ header {
 }
 
 footer {
+	display: grid;
+	gap: 1rem;
+	place-items: center;
 	max-width: 80ch;
 }
 
