@@ -69,6 +69,10 @@ body {
 }
 
 header {
+	display: grid;
+	gap: 0.5rem;
+	place-items: center;
+
 	h1 {
 		margin: 0;
 		font-size: 2.5rem;
@@ -80,6 +84,12 @@ footer {
 	gap: 1rem;
 	place-items: center;
 	max-width: 80ch;
+}
+
+.subheading {
+	font-size: smaller;
+	opacity: 0.6;
+	margin: 0;
 }
 
 .cards {

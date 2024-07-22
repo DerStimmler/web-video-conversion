@@ -4,12 +4,24 @@
 		<meta charset="UTF-8" />
 		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			content="Showcase website for converting video using ffmpeg.js and ffmpeg.wasm"
+			name="description"
+		/>
+		<meta
+			content="typescript, ffmpeg, service-worker, wasm, asmjs, webworker, vite, ffmpeg-wasm, ffmpeg-js, web-video-conversion"
+			name="keywords"
+		/>
+		<meta content="DerStimmler" name="author" />
 		<title>web-video-conversion</title>
 	</head>
 	<body>
 		<div class="app">
 			<header>
 				<h1>web-video-conversion</h1>
+				<p class="subheading">
+					Showcase website for converting video using ffmpeg.js and ffmpeg.wasm
+				</p>
 			</header>
 			<div class="cards">
 				<div class="card">
@@ -25,6 +37,21 @@
 					</select>
 					<button id="button-convert-asm">Convert</button>
 					<div id="asm-state">Ready</div>
+				</div>
+
+				<div class="card">
+					<div class="card__header">ffmpeg.js (WW)</div>
+					<input type="file" id="asm-ww-file-input" accept="video/mp4" />
+					<select id="asm-ww-format-input">
+						<option value="audio/mp3">mp3</option>
+						<option value="video/mpeg">mpeg</option>
+						<option disabled value="video/webm">webm</option>
+						<option disabled value="video/mp4">mp4</option>
+						<option disabled value="video/mkv">mkv</option>
+						<option disabled value="video/mov">mov</option>
+					</select>
+					<button id="button-convert-asm-ww">Convert</button>
+					<div id="asm-ww-state">Ready</div>
 				</div>
 
 				<div class="card">
