@@ -4,7 +4,7 @@ Showcase website for converting video using ffmpeg.js and ffmpeg.wasm
 
 ## Demo
 
-Access the website [here](https://derstimmler.github.io/web-video-conversion/).
+Access the website [here](https://web-video-conversion.netlify.app).
 
 ## Features
 

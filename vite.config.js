@@ -14,7 +14,6 @@ const crossOriginIsolation = {
 };
 
 export default defineConfig({
-    base: '/web-video-conversion/',
     plugins: [
         vitePluginRequire.default(),
         crossOriginIsolation
