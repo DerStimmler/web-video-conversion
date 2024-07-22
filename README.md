@@ -1,6 +1,6 @@
 # web-video-conversion
 
-Website to convert videos using ffmpeg.js and ffmpeg.wasm
+Showcase website for converting video using ffmpeg.js and ffmpeg.wasm
 
 ## Demo
 
@@ -8,14 +8,14 @@ Access the website [here](https://derstimmler.github.io/web-video-conversion/).
 
 ## Features
 
-- Convert .mp4 files to `.mpeg` or `.mp3`
+- Convert `.mp4` to `.mpeg` or `.mp3`
 - Use different ffmpeg variants
   - ffmpeg.js
-  - ffmpeg.js (with WebWorker) _(planned)_
+  - ffmpeg.js (with WebWorker)
   - ffmpeg.wasm
-  - ffmpeg.wasm (Multi-Threaded)
-- Show duration conversion process
-- Introduce caching for WASM files _(planned)_
+  - ffmpeg.wasm (with Multi-Threading)
+- Show the time required for the conversion process
+- Cache WASM files with ServiceWorker _(planned)_
 
 ## Run locally
 
