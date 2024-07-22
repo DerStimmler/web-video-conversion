@@ -1,3 +1,4 @@
+import workerFile from "ffmpeg.js/ffmpeg-worker-mp4.js?url";
 import { downloadBlob } from "./utils";
 
 let file: File;
@@ -41,7 +42,7 @@ function convertFile(file: File, format: string, mimeType: string) {
 	file.arrayBuffer().then((buffer) => {
 		updateState("Converting...");
 
-		const worker = new Worker("node_modules/ffmpeg.js/ffmpeg-worker-mp4.js");
+		const worker = new Worker(workerFile);
 
 		performance.mark("start");
 
