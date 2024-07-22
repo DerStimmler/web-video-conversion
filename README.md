@@ -15,7 +15,7 @@ Access the website [here](https://web-video-conversion.netlify.app).
   - ffmpeg.wasm
   - ffmpeg.wasm (with Multi-Threading)
 - Show the time required for the conversion process
-- Cache WASM files with ServiceWorker _(planned)_
+- Cache files via ServiceWorker (especially relevant for big wasm files)
 
 ## Run locally
 
