@@ -21,6 +21,13 @@ export async function convertWasmMt() {
 		return;
 	}
 
+	if (!window.crossOriginIsolated) {
+		alert(
+			"Cross origin isolation is not enabled on GitHub pages. Run the project locally to use Multi-Threading."
+		);
+		return;
+	}
+
 	const formatInput = document.getElementById(
 		"wasm-mt-format-input"
 	) as HTMLSelectElement;
