@@ -40,11 +40,11 @@ function convertFile(file: File, format: string, mimeType: string) {
 	let stdout = "";
 	let stderr = "";
 
+	updateState("Converting...");
+
+	performance.mark("start");
+
 	file.arrayBuffer().then((buffer) => {
-		updateState("Converting...");
-
-		performance.mark("start");
-
 		const result = ffmpeg({
 			MEMFS: [{ name: inputFileName, data: buffer }],
 			arguments: ["-i", inputFileName, outputFileName],

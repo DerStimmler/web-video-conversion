@@ -24,7 +24,7 @@ export function convertAsmWW() {
 	updateState("Preparing...");
 
 	const formatInput = document.getElementById(
-		"asm-format-input"
+		"asm-ww-format-input"
 	) as HTMLSelectElement;
 	const format = formatInput.options[formatInput.selectedIndex].text;
 	const mimeType = formatInput.options[formatInput.selectedIndex].value;
@@ -39,12 +39,12 @@ function convertFile(file: File, format: string, mimeType: string) {
 	let stdout = "";
 	let stderr = "";
 
+	updateState("Converting...");
+
+	performance.mark("start");
+
 	file.arrayBuffer().then((buffer) => {
-		updateState("Converting...");
-
 		const worker = new Worker(workerFile);
-
-		performance.mark("start");
 
 		worker.onmessage = function (e) {
 			const msg = e.data;

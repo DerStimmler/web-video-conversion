@@ -62,12 +62,11 @@ async function convertFile(file: File, format: string, mimeType: string) {
 			),
 		});
 	}
+
 	performance.mark("start");
 
 	await ffmpeg.writeFile(inputFileName, await fetchFile(file));
-	console.log("Start transcoding");
-	await ffmpeg.exec(["-threads", "4", "-i", inputFileName, outputFileName]);
-	console.log("Complete transcoding");
+	await ffmpeg.exec(["-i", inputFileName, outputFileName]);
 	const data = await ffmpeg.readFile(outputFileName);
 
 	performance.mark("end");

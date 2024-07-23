@@ -8,7 +8,7 @@ Access the website [here](https://web-video-conversion.netlify.app).
 
 ## Features
 
-- Convert `.mp4` to `.mpeg` or `.mp3`
+- Convert `.webm` to `.mp4` or `.mp3`
 - Use different ffmpeg variants
   - ffmpeg.js
   - ffmpeg.js (with WebWorker)
