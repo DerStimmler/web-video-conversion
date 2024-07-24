@@ -16,7 +16,7 @@ export function handleAsmFile() {
 	);
 }
 
-export function convertAsm() {
+export async function convertAsm() {
 	if (!file) {
 		alert("Please select a file first.");
 		return;
@@ -30,10 +30,10 @@ export function convertAsm() {
 	const format = formatInput.options[formatInput.selectedIndex].text;
 	const mimeType = formatInput.options[formatInput.selectedIndex].value;
 
-	convertFile(file, format, mimeType);
+	await convertFile(file, format, mimeType);
 }
 
-function convertFile(file: File, format: string, mimeType: string) {
+async function convertFile(file: File, format: string, mimeType: string) {
 	const inputFileName = file.name;
 	const outputFileName = inputFileName.split(".")[0] + "-converted." + format;
 
@@ -44,33 +44,33 @@ function convertFile(file: File, format: string, mimeType: string) {
 
 	performance.mark("start");
 
-	file.arrayBuffer().then((buffer) => {
-		const result = ffmpeg({
-			MEMFS: [{ name: inputFileName, data: buffer }],
-			arguments: ["-i", inputFileName, outputFileName],
-			print: function (data: string) {
-				stdout += data + "\n";
-			},
-			printErr: function (data: string) {
-				stderr += data + "\n";
-			},
-			onExit: function (code: number) {
-				console.info(stdout);
-				console.log(stderr);
-				console.log("Process exited with code " + code);
-			},
-		});
+	const fileBuffer = await file.arrayBuffer();
 
-		const out = result.MEMFS[0];
-
-		performance.mark("end");
-
-		downloadBlob([out.data], mimeType, outputFileName);
-
-		const measure = performance.measure("test", "start", "end");
-
-		updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
+	const result = ffmpeg({
+		MEMFS: [{ name: inputFileName, data: fileBuffer }],
+		arguments: ["-i", inputFileName, outputFileName],
+		print: function (data: string) {
+			stdout += data + "\n";
+		},
+		printErr: function (data: string) {
+			stderr += data + "\n";
+		},
+		onExit: function (code: number) {
+			console.info(stdout);
+			console.log(stderr);
+			console.log("Process exited with code " + code);
+		},
 	});
+
+	const out = result.MEMFS[0];
+
+	performance.mark("end");
+
+	downloadBlob([out.data], mimeType, outputFileName);
+
+	const measure = performance.measure("test", "start", "end");
+
+	updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
 }
 
 function updateState(state: string) {
