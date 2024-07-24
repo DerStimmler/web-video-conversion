@@ -48,7 +48,7 @@ async function convertFile(file: File, format: string, mimeType: string) {
 			console.log(message);
 		});
 		ffmpeg.on("progress", ({ progress }) => {
-			updateState(`Progress: ${progress * 100} %`);
+			updateState(`Progress: ${(progress * 100).toFixed(2)} %`);
 		});
 		await ffmpeg.load({
 			coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
