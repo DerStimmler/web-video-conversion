@@ -43,44 +43,44 @@ function convertFile(file: File, format: string, mimeType: string) {
 
 	performance.mark("start");
 
-	file.arrayBuffer().then((buffer) => {
-		const worker = new Worker(workerFile);
+	const buffer = file.arrayBuffer();
 
-		worker.onmessage = function (e) {
-			const msg = e.data;
-			switch (msg.type) {
-				case "ready":
-					worker.postMessage({
-						type: "run",
-						arguments: ["-i", inputFileName, outputFileName],
-						MEMFS: [{ name: inputFileName, data: buffer }],
-					});
-					break;
-				case "stdout":
-					stdout += msg.data + "\n";
-					break;
-				case "stderr":
-					stderr += msg.data + "\n";
-					break;
-				case "done":
-					console.info(stdout);
-					console.log(stderr);
+	const worker = new Worker(workerFile);
 
-					const out = msg.data.MEMFS[0];
+	worker.onmessage = (e) => {
+		const msg = e.data;
+		switch (msg.type) {
+			case "ready":
+				worker.postMessage({
+					type: "run",
+					arguments: ["-i", inputFileName, outputFileName],
+					MEMFS: [{ name: inputFileName, data: buffer }],
+				});
+				break;
+			case "stdout":
+				stdout += msg.data + "\n";
+				break;
+			case "stderr":
+				stderr += msg.data + "\n";
+				break;
+			case "done":
+				console.info(stdout);
+				console.log(stderr);
 
-					performance.mark("end");
+				const out = msg.data.MEMFS[0];
 
-					downloadBlob([out.data], mimeType, outputFileName);
+				performance.mark("end");
 
-					worker.terminate();
+				downloadBlob([out.data], mimeType, outputFileName);
 
-					const measure = performance.measure("test", "start", "end");
+				worker.terminate();
 
-					updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
-					break;
-			}
-		};
-	});
+				const measure = performance.measure("test", "start", "end");
+
+				updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
+				break;
+		}
+	};
 }
 
 function updateState(state: string) {

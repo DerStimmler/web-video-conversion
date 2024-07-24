@@ -44,33 +44,33 @@ function convertFile(file: File, format: string, mimeType: string) {
 
 	performance.mark("start");
 
-	file.arrayBuffer().then((buffer) => {
-		const result = ffmpeg({
-			MEMFS: [{ name: inputFileName, data: buffer }],
-			arguments: ["-i", inputFileName, outputFileName],
-			print: function (data: string) {
-				stdout += data + "\n";
-			},
-			printErr: function (data: string) {
-				stderr += data + "\n";
-			},
-			onExit: function (code: number) {
-				console.info(stdout);
-				console.log(stderr);
-				console.log("Process exited with code " + code);
-			},
-		});
+	const fileBuffer = file.arrayBuffer();
 
-		const out = result.MEMFS[0];
-
-		performance.mark("end");
-
-		downloadBlob([out.data], mimeType, outputFileName);
-
-		const measure = performance.measure("test", "start", "end");
-
-		updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
+	const result = ffmpeg({
+		MEMFS: [{ name: inputFileName, data: fileBuffer }],
+		arguments: ["-i", inputFileName, outputFileName],
+		print: function (data: string) {
+			stdout += data + "\n";
+		},
+		printErr: function (data: string) {
+			stderr += data + "\n";
+		},
+		onExit: function (code: number) {
+			console.info(stdout);
+			console.log(stderr);
+			console.log("Process exited with code " + code);
+		},
 	});
+
+	const out = result.MEMFS[0];
+
+	performance.mark("end");
+
+	downloadBlob([out.data], mimeType, outputFileName);
+
+	const measure = performance.measure("test", "start", "end");
+
+	updateState(`Duration: ${measure.duration.toFixed(2)} ms`);
 }
 
 function updateState(state: string) {
