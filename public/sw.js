@@ -1,4 +1,4 @@
-const cacheName = "web-video-conversion-v2";
+const cacheName = "web-video-conversion-v3";
 const cacheAssets = [
     ".",
     "index.html"

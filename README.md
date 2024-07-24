@@ -17,6 +17,8 @@ Access the website [here](https://web-video-conversion.netlify.app).
 - Show the time required for the conversion process
 - Cache files via ServiceWorker (especially relevant for big wasm files)
 
+_Note that converting `.webm` to `.mp4` with ffmpeg.wasm (MT) is currently only working on Firefox._
+
 ## Run locally
 
 1. `pnpm install`

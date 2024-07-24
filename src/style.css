@@ -84,6 +84,15 @@ footer {
 	gap: 1rem;
 	place-items: center;
 	max-width: 80ch;
+
+	ul {
+		margin: 0;
+	}
+
+	.hint {
+		font-size: smaller;
+		font-style: italic;
+	}
 }
 
 .subheading {

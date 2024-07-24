@@ -28,11 +28,7 @@
 					<input type="file" id="asm-file-input" accept="video/webm" />
 					<select id="asm-format-input">
 						<option value="audio/mp3">mp3</option>
-						<option disabled value="video/mpeg">mpeg</option>
-						<option disabled value="video/webm">webm</option>
 						<option value="video/mp4">mp4</option>
-						<option disabled value="video/mkv">mkv</option>
-						<option disabled value="video/mov">mov</option>
 					</select>
 					<button id="button-convert-asm">Convert</button>
 					<div id="asm-state">Ready</div>
@@ -43,11 +39,7 @@
 					<input type="file" id="asm-ww-file-input" accept="video/webm" />
 					<select id="asm-ww-format-input">
 						<option value="audio/mp3">mp3</option>
-						<option disabled value="video/mpeg">mpeg</option>
-						<option disabled value="video/webm">webm</option>
 						<option value="video/mp4">mp4</option>
-						<option disabled value="video/mkv">mkv</option>
-						<option disabled value="video/mov">mov</option>
 					</select>
 					<button id="button-convert-asm-ww">Convert</button>
 					<div id="asm-ww-state">Ready</div>
@@ -58,11 +50,7 @@
 					<input type="file" id="wasm-file-input" accept="video/webm" />
 					<select id="wasm-format-input">
 						<option value="audio/mp3">mp3</option>
-						<option disabled value="video/mpeg">mpeg</option>
-						<option disabled value="video/webm">webm</option>
 						<option value="video/mp4">mp4</option>
-						<option disabled value="video/mkv">mkv</option>
-						<option disabled value="video/mov">mov</option>
 					</select>
 					<button id="button-convert-wasm">Convert</button>
 					<div id="wasm-state">Ready</div>
@@ -73,22 +61,35 @@
 					<input type="file" id="wasm-mt-file-input" accept="video/webm" />
 					<select id="wasm-mt-format-input">
 						<option value="audio/mp3">mp3</option>
-						<option disabled value="video/mpeg">mpeg</option>
-						<option disabled value="video/webm">webm</option>
 						<option value="video/mp4">mp4</option>
-						<option disabled value="video/mkv">mkv</option>
-						<option disabled value="video/mov">mov</option>
 					</select>
 					<button id="button-convert-wasm-mt">Convert</button>
 					<div id="wasm-mt-state">Ready</div>
 				</div>
 			</div>
 			<footer>
-				<p>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-					omnis similique dolore ipsam voluptatibus quibusdam quidem reiciendis,
-					amet praesentium non eligendi modi nihil rerum ipsa nam dignissimos
-					voluptatem, velit sed.
+				<ul>
+					<li>
+						Convert <code>.webm</code> to <code>.mp4</code> or <code>.mp3</code>
+					</li>
+					<li>
+						Use different ffmpeg variants
+						<ul>
+							<li>ffmpeg.js</li>
+							<li>ffmpeg.js (with WebWorker)</li>
+							<li>ffmpeg.wasm</li>
+							<li>ffmpeg.wasm (with Multi-Threading)</li>
+						</ul>
+					</li>
+					<li>Show the time required for the conversion process</li>
+					<li>
+						Cache files via ServiceWorker (especially relevant for big wasm
+						files)
+					</li>
+				</ul>
+				<p class="hint">
+					Note that converting <code>.webm</code> to <code>.mp4</code> with
+					ffmpeg.wasm (MT) is currently only working on Firefox.
 				</p>
 				<a href="https://github.com/DerStimmler/web-video-conversion">
 					<img
